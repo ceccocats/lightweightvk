@@ -1348,7 +1348,7 @@ lvk::Result lvk::VulkanSwapchain::present(VkSemaphore waitSemaphore) {
   getNextImage_ = true;
   currentFrameIndex_++;
 
-  LVK_PROFILER_FRAME(nullptr);
+  // LVK_PROFILER_FRAME(nullptr);
 
   return Result();
 }
