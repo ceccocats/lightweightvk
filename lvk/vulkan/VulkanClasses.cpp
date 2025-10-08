@@ -6289,7 +6289,7 @@ void lvk::VulkanContext::getBuildInfoBLAS(const AccelStructDesc& desc,
                       .transformData = {.deviceAddress = gpuAddress(desc.transformBuffer)},
                   },
           },
-      .flags = VK_GEOMETRY_OPAQUE_BIT_KHR,
+      .flags = geometryFlags,
   };
 
   const VkAccelerationStructureBuildGeometryInfoKHR accelerationBuildGeometryInfo{
