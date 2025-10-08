@@ -73,7 +73,9 @@ layout(push_constant) uniform PushConstants {
 void main() {
   vec4 c = in_color * texture(nonuniformEXT(sampler2D(kTextures2D[pc.textureId], kSamplers[pc.samplerId])), in_uv);
   // Render UI in linear color space to sRGB framebuffer.
-  out_color = kNonLinearColorSpace ? vec4(pow(c.rgb, vec3(2.2)), c.a) : c;
+  // out_color = kNonLinearColorSpace ? vec4(pow(c.rgb, vec3(2.2)), c.a) : c;
+  // Force linear
+  out_color = c;
 })";
 
 namespace lvk {
@@ -109,6 +111,7 @@ ImGuiRenderer::ImGuiRenderer(lvk::IContext& device, const char* defaultFontTTF, 
   ImGuiIO& io = ImGui::GetIO();
   io.BackendRendererName = "imgui-lvk";
   io.BackendFlags |= ImGuiBackendFlags_RendererHasVtxOffset;
+  io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
   updateFont(defaultFontTTF, fontSizePixels);
   
@@ -169,7 +172,7 @@ void ImGuiRenderer::beginFrame(const lvk::Framebuffer& desc) {
   ImGuiIO& io = ImGui::GetIO();
   io.DisplaySize = ImVec2(dim.width / displayScale_, dim.height / displayScale_);
   io.DisplayFramebufferScale = ImVec2(displayScale_, displayScale_);
-  io.IniFilename = nullptr;
+  // io.IniFilename = nullptr;
 
   if (pipeline_.empty()) {
     pipeline_ = createNewPipelineState(desc);

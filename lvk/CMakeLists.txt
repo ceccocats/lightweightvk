@@ -33,6 +33,8 @@ target_link_libraries(LVKLibrary PUBLIC LVKVulkan)
 if(LVK_WITH_GLFW)
   target_link_libraries(LVKLibrary PUBLIC glfw)
 endif()
+target_link_libraries(LVKLibrary PUBLIC X11)
+
 
 if(APPLE)
   target_link_libraries(LVKLibrary PRIVATE "-framework Metal" "-framework AppKit" "-framework Foundation" "-framework QuartzCore")
